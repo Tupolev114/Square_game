@@ -3,7 +3,6 @@ import random
 pygame.init()
 mode = ""
 WIDTH, HEIGHT = 800, 400
-<<<<<<< HEAD
 # create a grid somehow
 cell_x = 0
 cell_y = 0
@@ -19,8 +18,6 @@ while cell_x <= 780:
         cell_y += 20
     cell_y = 0 
     cell_x += 20
-=======
->>>>>>> ab2cc6cb306ee64e0556da85f702907d100d1c24
 win = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Simple Fight Game")
 numObstacles = random.randint(10,15)
@@ -44,7 +41,7 @@ DIRECITONS = {
 }
 VECTORS = {
   "right": (1,0),
-<<<<<<< HEAD
+
  
     "down": (0,1),
     
@@ -54,50 +51,43 @@ VECTORS = {
    
    
    
-    
-=======
+
     "left": (-1,0),
     "down": (0,1),
-    "up": (0,-1)
->>>>>>> ab2cc6cb306ee64e0556da85f702907d100d1c24
+
 
 }
 
 projectiles = []
 class Player:
-    def __init__(
-        self,
-        name,
-        health,
-        x,
-        y,
-        color,
-        attacking,
-        attack_length,
-        attack_speed,
-        MaxLength,
-        returning,
-        direction,
-        dash,
-        dash_timer,
-        dash_cooldown,
-        weapon_type,
-        has_hit,
-        dash_direction,
-        ammo,
-        attack_timer,
-        is_ai,
-        heal_cooldown,
-<<<<<<< HEAD
-        path
+    def __init__ (    
+            self,
+            name,
+            health,
+            x,
+            y,
+            color,
+            attacking,
+            attack_length,
+            attack_speed,
+            MaxLength,
+            returning,
+            direction,
+            dash,
+            dash_timer,
+            dash_cooldown,
+            weapon_type,
+            has_hit,
+            dash_direction,
+            ammo,
+            attack_timer,
+            is_ai,
+            heal_cooldown,
+            path,
+         
+        
      
     
-=======
-        collided,
-        move_timer,
-        collided_directions,
-        collided_timer
->>>>>>> ab2cc6cb306ee64e0556da85f702907d100d1c24
     ):
         self.name = name
         self.health = health
@@ -120,7 +110,6 @@ class Player:
         self.attack_timer = attack_timer
         self.is_ai = False
         self.heal_cooldown = heal_cooldown
-<<<<<<< HEAD
         self.path = path
     
         
@@ -137,11 +126,7 @@ class Player:
                     self.y = 0
          
       
-=======
-        self.collided = False
-        self.move_timer = move_timer
-        self.collided_directions = collided_directions
-        self.collided_timer = collided_timer
+
         
     def Dont_go_offscreen_plz(self):
         if self.x < 30 or self.x > 730 or self.y < 30 or self.y > 350:
@@ -154,18 +139,7 @@ class Player:
                     self.y = 350
             elif self.y <30:
                     self.y = 30
-            self.collided = True
-            if self.is_ai:
-                 self.collided_directions.append(self.direction)
-                 if self.direction == "up":
-                        self.direction = "left"
-                 elif self.direction == "right":
-                        self.direction = "up"
-                 elif self.direction == "down":
-                        self.direction = "right"
-                 elif self.direction == "left":
-                        self.direction = "down"
->>>>>>> ab2cc6cb306ee64e0556da85f702907d100d1c24
+
             
     def attack(self):
     
@@ -203,7 +177,6 @@ class Player:
             self.y += Yvelocity
         player_rect = pygame.Rect(self.x,self.y,50,50)
         for obstacle in obstacles:
-<<<<<<< HEAD
             obstacle_rect = pygame.Rect(obstacle["x"],obstacle["y"],20,20)
             if player_rect.colliderect(obstacle_rect):
              
@@ -211,43 +184,24 @@ class Player:
                 self.y -=Yvelocity
       
  
-=======
-            obstacle_rect = pygame.Rect(obstacle["x"],obstacle["y"],50,50)
-            if player_rect.colliderect(obstacle_rect):
-                self.collided_directions.append(self.direction)
-                self.x -=Xvelocity
-                self.y -=Yvelocity
-                if self.is_ai == True:
-                   self.collided = True
-                   if self.direction == "up":
-                        self.direction = "left"
-                   elif self.direction == "right":
-                        self.direction = "up"
-                   elif self.direction == "down":
-                        self.direction = "right"
-                   elif self.direction == "left":
-                        self.direction = "down"
->>>>>>> ab2cc6cb306ee64e0556da85f702907d100d1c24
+    
             
     def draw_bullet(self):
        
    
         for projectile in projectiles:
-<<<<<<< HEAD
     
-=======
->>>>>>> ab2cc6cb306ee64e0556da85f702907d100d1c24
             bullet = pygame.Rect(projectile["x"],projectile["y"],10,10)
         
             pygame.draw.rect(win,(0,255,0),bullet)
             
     def draw(self, win):
         if self.health > 0:
-<<<<<<< HEAD
+
             player1 = pygame.transform.scale((pygame.image.load('/home/charles/square_game/Skware.png')),(50,50))
-=======
-            player1 = pygame.transform.scale((pygame.image.load('Downloads/GDcube1.png')),(50,50))
->>>>>>> ab2cc6cb306ee64e0556da85f702907d100d1c24
+
+       
+
             
             win.blit(player1,(self.x,self.y))
 
@@ -344,19 +298,19 @@ class Player:
                 enemy.y += vy*50
                 enemy_rect = pygame.Rect(enemy.x, enemy.y, 50, 50)
                 for obstacle in obstacles:
-<<<<<<< HEAD
+
                      obstacle_rect = pygame.Rect(obstacle["x"],obstacle["y"],20,20)
                      if enemy_rect.colliderect(obstacle_rect):
                         print("c")
                         enemy.x -= vx*20
                         enemy.y -= vy*20
-=======
+
                      obstacle_rect = pygame.Rect(obstacle["x"],obstacle["y"],50,50)
                      if enemy_rect.colliderect(obstacle_rect):
                         print("c")
                         enemy.x -= vx*50
                         enemy.y -= vy*50
->>>>>>> ab2cc6cb306ee64e0556da85f702907d100d1c24
+
                        
                 enemy.take_damage(amount)
                 enemy.show()
@@ -404,7 +358,7 @@ def die():
         death_text = font.render((str(P.name) + " has won"),True,(255,0,0))
     win.blit(death_text,(200,100))
 
-<<<<<<< HEAD
+
 
 game_state = "menu"
 def P2_inputs():
@@ -413,13 +367,13 @@ def P2_inputs():
         P2.direction = "left"
      if keys[pygame.K_RIGHT]:
         P2.movement(20, 0)
-=======
+
 P = Player(
-    "Player_Name", 100, 0, 0, "red", False, 20, 5, 80, False, "right", False, 0, 0,"block",False,"right",100,60,False,300,False,30,[],60
+    "Player_Name", 100, 0, 0, "red", False, 20, 5, 80, False, "right", False, 0, 0,"block",False,"right",100,60,False,300,False
 )
 
 P2 = Player(
-    "Player 2", 100, 0, 0, "green", False, 20, 5, 80, False, "left", False, 0, 0,"block",False,"right",100,60,False,300,False,30,[],60
+    "Player 2", 100, 0, 0, "green", False, 20, 5, 80, False, "left", False, 0, 0,"block",False,"right",100,60,False,300,False
 )
 game_state = "menu"
 def P2_inputs():
@@ -428,20 +382,20 @@ def P2_inputs():
         P2.direction = "left"
      if keys[pygame.K_RIGHT]:
         P2.movement(10, 0)
->>>>>>> ab2cc6cb306ee64e0556da85f702907d100d1c24
+
         P2.direction = "right"
 
      if keys[pygame.K_UP]:
         P2.direction = "up"
-<<<<<<< HEAD
+
         P2.movement(0, -20)
      if keys[pygame.K_DOWN]:
         P2.movement(0, 20)
-=======
+
         P2.movement(0, -10)
      if keys[pygame.K_DOWN]:
         P2.movement(0, 10)
->>>>>>> ab2cc6cb306ee64e0556da85f702907d100d1c24
+
         P2.direction = "down"
      if keys[pygame.K_KP0]:
                 P2.weapon_type = "gun"
@@ -464,7 +418,7 @@ def mouse_inputs():
      else:
           P.direction = "down" if dy > 0 else "up"
 run = True
-<<<<<<< HEAD
+
 def a_star(grid,x,y, target_x, target_y):
    
     if(x,y) == (target_x,target_y):
@@ -562,8 +516,7 @@ P2.x = 0
 P2.y = 0
 
 
-=======
->>>>>>> ab2cc6cb306ee64e0556da85f702907d100d1c24
+
 
 while run:
    
@@ -593,7 +546,7 @@ while run:
                        
                         game_state = "playing"
                     obstacles = []
-<<<<<<< HEAD
+
 
                     for store_obstacles in range(numObstacles):
                         obstaclex,obstacley = random.randint(3,40),random.randint(3,20)
@@ -721,64 +674,41 @@ while run:
 
             
 
-         
-    
-    if game_state == "playing":
-        P.draw(win)
-        P2.draw(win)
-    if game_state == "death":
-            die()
-    for obstacle in obstacles:
-                        draw_obstacle = pygame.Rect(obstacle["x"],obstacle["y"],20,20)
-                        pygame.draw.rect(win,(128,128,128),draw_obstacle)
-                       
-=======
-                    for store_obstacles in range(numObstacles):
-                        obstaclex,obstacley = random.uniform(100.0,750.0),random.uniform(100.0,350.0)
-                        obstacle_rect = {"x":obstaclex,"y":obstacley,"length": 50,"width":50}
-                       
-                        obstacles.append(obstacle_rect)
-                  
-        elif game_state == "playing":
-            
-       
-          P.draw(win)
-          P2.draw(win)
           
                     
           
-          if P.health <= 0 or P2.health <= 0:
-              game_state = "death"
-          if event.type == pygame.KEYDOWN:
-            
-            if event.key == pygame.K_LSHIFT:
-               
-                P.attack()
-            if event.key == pygame.K_r:
-                 P.heal(10)
-                 P.heal_cooldown = 300
-            if event.key == pygame.K_KP4:
-                 P2.heal(10)
-            if event.key == pygame.K_RSHIFT and mode == "PvP":
-                   
-                    P2.attack()
-           
-          
-                     
-            if event.key == pygame.K_1:
-                P.weapon_type = "block"
-            if event.key == pygame.K_2:
-                 P.weapon_type = "gun"
+            if P.health <= 0 or P2.health <= 0:
+                game_state = "death"
+            if event.type == pygame.KEYDOWN:
                 
-         
-          if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.key == pygame.K_LSHIFT:
+                
+                    P.attack()
+                if event.key == pygame.K_r:
+                    P.heal(10)
+                    P.heal_cooldown = 300
+                if event.key == pygame.K_KP4:
+                    P2.heal(10)
+                if event.key == pygame.K_RSHIFT and mode == "PvP":
+                    
+                        P2.attack()
+            
+            
+                        
+                if event.key == pygame.K_1:
+                    P.weapon_type = "block"
+                if event.key == pygame.K_2:
+                    P.weapon_type = "gun"
+                    
+            
+            if event.type == pygame.MOUSEBUTTONDOWN:
 
-            if event.button == 1 and P.dash_cooldown == 0:
-                P.dash = True
-                P.dash_direction = P.direction
-                P.dash_timer = 60
-                P.dash_cooldown = 600
-         
+                if event.button == 1 and P.dash_cooldown == 0:
+                    P.dash = True
+                    P.dash_direction = P.direction
+                    P.dash_timer = 60
+                    P.dash_cooldown = 600
+            
             
 
           
@@ -792,7 +722,7 @@ while run:
                    
                         
 
->>>>>>> ab2cc6cb306ee64e0556da85f702907d100d1c24
+
     P.update_heal()
     P2.update_heal()
     P.update_attack(P2)
@@ -804,9 +734,9 @@ while run:
     P.update_shoot(P2)
     P2.update_shoot(P)
     P.draw_bullet()
-<<<<<<< HEAD
+
             
-=======
+
     
     
     keys = pygame.key.get_pressed()
@@ -828,47 +758,7 @@ while run:
         P2_inputs()
     elif mode == "PvE":
          mouse_inputs()
-         if P2.collided_directions == [] and P2.collided_timer > 0:
-            if P.x - P2.x > 10 and P2.collided == False:
-                P2.direction = "right"
-           
-                
-            elif P2.x - P.x > 10 and P2.collided == False:
-                P2.direction = "left"
-            
-                
-            if P.y - P2.y > 10 and P2.collided == False :
-                P2.direction = "down"
-              
-            
-            elif P2.y - P.y > 10 and P2.collided == False:
-                P2.direction = "up"
-         if abs(P.x-P2.x) > 30 or (P.y - P2.y) > 30:
-            
-            vx, vy = VECTORS[P2.direction]
-            print(P2.collided_directions)
-            print(P2.direction)
-            print(vx,vy)
-            mx = vx * 10
-            my = vy * 10
-            P2.movement(mx,my)
-
-         if P2.collided == True and P2.move_timer > 0:
-              P2.move_timer -= 1
-   
-         if P2.move_timer <= 0:
- 
-                   
-                   P2.move_timer = 30
-                   while P2.move_timer > 0:
-                        P2.move_timer -= 1
-                 
-                   P2.collided = False
-         if P2.collided_timer > 0 and P2.collided == False:
-            P2.collided_timer -= 1
-         if P2.collided_timer <= 0:
-              P2.collided_timer = 60
-              P2.collided_directions = []
+        
 
          if (abs(P2.x-P.x) < 10 or abs(P2.y-P.y) < 10) and P2.attack_timer <= 0:
             pass
@@ -884,7 +774,7 @@ while run:
     if game_state == "death":
             die()
 
->>>>>>> ab2cc6cb306ee64e0556da85f702907d100d1c24
+
     pygame.display.update()
 
 pygame.quit()
