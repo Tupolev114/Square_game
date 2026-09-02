@@ -118,17 +118,7 @@ class Player:
         self.a_star_timer = a_star_timer
         self.retreating = False
 
-    def Dont_go_offscreen_plz(self):
-        if self.x < 0 or self.x > 780 or self.y < 0 or self.y > 380:
-            if self.x < 0:
-                self.x = 0
 
-            elif self.x > 780:
-                self.x = 780
-            if self.y > 380:
-                self.y = 380
-            elif self.y < 0:
-                self.y = 0
 
     def attack(self):
 
@@ -166,7 +156,7 @@ class Player:
         if self.dash:
             Xvelocity = 60 * vx
             Yvelocity = 60 * vy
-        if self.health > 0:
+        if self.health > 0 and self.x+Xvelocity >= 0 and self.x+Xvelocity <= 780 and self.y+Yvelocity >= 0 and self.y+Yvelocity <= 380:
 
             self.x += Xvelocity
             self.y += Yvelocity
@@ -461,11 +451,10 @@ run = True
 
 
 def a_star(grid, x, y, target_x, target_y):
-    start = time.perf_counter()
-    global nodes_checked
-    nodes_checked = 0
+  
+       
     if (x, y) == (target_x, target_y):
-
+        
         return None
 
     directions = {
@@ -493,12 +482,15 @@ def a_star(grid, x, y, target_x, target_y):
 
     current = start_node
     
+    iterations = 0
     while (x, y) != (target_x, target_y):
-        
+        iterations +=1
         for direction in directions:
            
             vx, vy = directions[direction]
+         
             for cell in grid:
+               
                 # is this the cell we are searching for?
                 
                 if cell["x"] == (vx * 20) + x and cell["y"] == (vy * 20) + y:
@@ -509,7 +501,10 @@ def a_star(grid, x, y, target_x, target_y):
                         and 0 <= x + (vx * 20) <= 780
                         and 0 <= y + (vy * 20) <= 380
                     ):
-
+                        
+                    
+                
+                        
                         # taking the info of the neighbors
                         h = math.sqrt(
                             (target_x - (x + (vx * 20))) ** 2
@@ -544,13 +539,16 @@ def a_star(grid, x, y, target_x, target_y):
                         ):
 
                             open_list.append(neighbor_cell)
-      
+
+        
         lowest_f_index = 0
+        
         for i in range(len(open_list)):
             # check f value to see lowest one, exploring the open list
             if open_list[i]["f"] < open_list[lowest_f_index]["f"]:
                 lowest_f_index = i
-
+        
+        
         # remember this value, don't explore it again
 
         if len(open_list) > 0:
@@ -559,17 +557,21 @@ def a_star(grid, x, y, target_x, target_y):
 
             
             closed_list.append(open_list[lowest_f_index])
-            nodes_checked += 1
+          
+            
             current = open_list[lowest_f_index]
+          
             open_list.pop(lowest_f_index)
 
         else:
-
+         
+           
             return None
         # might search again, but we have the info of the cells
     # ending the search
 
     if closed_list:
+        t2 = time.perf_counter() 
         C = closed_list[-1]
 
         while (C["position"]) != (start_x, start_y):
@@ -577,17 +579,13 @@ def a_star(grid, x, y, target_x, target_y):
             C = C["parent"]
         path.reverse()
 
-        elapsed = time.perf_counter() - start
-   
-        print(
-                f"A*:{elapsed:.6f}s | "
-            )
-        print(f"Nodes checked: {nodes_checked}")
-        print(f"Open list length: {len(open_list)}")
-        print(f"Closed list length: {len(closed_list)}")
-        return path
-    else:
 
+      
+        #Every costly calculation is none
+      
+        return path 
+    else:
+        
         return None
 def Path_follow():
     if P2.path and P2.path[0]["position"] != (P.x, P.y) and P2.retreating == False:
@@ -847,14 +845,14 @@ while run:
             P2.movement(mx, my)
             mouse_inputs()
             #   A*STAR PATHFINDING FOR P2
-            # 0.7 seconds per search at times....
+         
             
             if P2.a_star_timer <= 0 and P2.retreating == False:
-                t = time.perf_counter()
+              
                 P2.path = a_star(grid, P2.x, P2.y, P.x, P.y)
-                elapsed = time.perf_counter() - t
-                if elapsed >= 0.15:
-                     print(f"A* search took {elapsed:.6f} seconds")
+
+         
+                 
    
                 P2.a_star_timer = 30
             else:
@@ -910,6 +908,8 @@ while run:
         #          P2.retreating = False
          #    if P2.heal_cooldown == 0:
           #        P2.heal(10)
+        if abs(P2.x - P.x) <= 20 and abs(P2.y - P.y) <= 20:
+            P2.attack()
              
         P.update_heal()
         P2.update_heal()
@@ -917,8 +917,7 @@ while run:
         P2.update_attack(P)
         P.update_dash()
         P2.update_dash()
-        P.Dont_go_offscreen_plz()
-        P2.Dont_go_offscreen_plz()
+  
         P.update_shoot(P2)
         P2.update_shoot(P)
         P.draw_bullet()
