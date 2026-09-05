@@ -625,6 +625,25 @@ def Path_follow():
                 
                                                 else:
                                                     P2.direction = "left"
+def nodes_in_row():
+    nodes_in_line = 0
+    if P2.path and len(P2.path) > 1:
+        
+        firstX, firstY = P2.path[0]["position"]
+        secondX, secondY = P2.path[1]["position"]
+        if abs(secondX - firstX) <= 10 or abs(secondY - firstY) <= 10:
+            nodes_in_line = 2
+
+            for node in range(2, len(P2.path)):
+                nodeX, nodeY = P2.path[node]["position"]
+                if abs(secondX - firstX) <= 20:
+
+                    if nodeX == firstX:
+                        nodes_in_line += 1
+                else:
+                    if nodeY == firstY:
+                        nodes_in_line += 1
+    return nodes_in_line
 
 P = Player(
     "Player_Name",
@@ -864,50 +883,18 @@ while run:
             
             
                                         # P2 dash in PvE
-            if P2.path and len(P2.path) > 1:
-                                            nodes_in_line = 0
-                                            firstX, firstY = P2.path[0]["position"]
-                                            secondX, secondY = P2.path[1]["position"]
-                                            if (
-                                                abs(secondX - firstX) <= 10
-                                               or abs(secondY - firstY) <= 10
-                                            ):
-                                                nodes_in_line = 2
+                n  = nodes_in_row()
             
-                                                for node in range(2, len(P2.path)):
-                                                    nodeX, nodeY = P2.path[node]["position"]
-                                                    if abs(secondX - firstX) <= 20:
-            
-                                                        if nodeX == firstX:
-                                                            nodes_in_line += 1
-                                                    else:
-                                                        if nodeY == firstY:
-                                                            nodes_in_line += 1
-            
-                                            if nodes_in_line >= 5:
+                if  8>= n >= 5:
                                                 P2.dash_cooldown = 300
                                                 P2.dash_timer = 60
                                                 P2.dash_direction = P2.direction
                                                 P2.dash = True
-        if P2.health <= 50:
-             P2.retreating = True
-        #if P2.retreating == True:
-         #    xTarget = 400 if P.x <= 200 else 0
-          #   yTarget = 800 if P.y <= 400 else 0
-           #  print(xTarget, yTarget)
-            # if P2.a_star_timer <= 0:
-             #     P2.a_star_timer = 30
-              #    P2.path = a_star(grid,P2.x,P2.y,xTarget,yTarget)
-             #else:
-              #      if P2.a_star_timer > 0:
-               #          P2.a_star_timer -= 1
-      
-     #        if P2.path:
-      #            Path_follow()
-       #      if P2.health >= 80:
-        #          P2.retreating = False
-         #    if P2.heal_cooldown == 0:
-          #        P2.heal(10)
+                elif n > 8:
+                     P2.weapon_type = "gun"
+                else:
+                     P2.weapon_type = "block"
+
         if abs(P2.x - P.x) <= 20 and abs(P2.y - P.y) <= 20:
             P2.attack()
              
