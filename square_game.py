@@ -897,6 +897,9 @@ while run:
 
         if abs(P2.x - P.x) <= 20 and abs(P2.y - P.y) <= 20:
             P2.attack()
+        if P2.health < 100 and P2.heal_cooldown == 0:
+            P2.heal(10)
+            P2.heal_cooldown = 300
              
         P.update_heal()
         P2.update_heal()
