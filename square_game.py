@@ -175,8 +175,7 @@ async def main():
             for projectile in projectiles:
 
                 bullet = pygame.Rect(projectile["x"], projectile["y"], 10, 10)
-
-                pygame.draw.rect(win, (0, 255, 0), bullet)
+                pygame.draw.rect(win, (255, 255, 0), bullet)
         def no_offscreen(self):
              if self.x < 0:
                 self.x = 0
@@ -209,7 +208,7 @@ async def main():
                     Weapon_rect = pygame.Rect(weapon_x, weapon_y, 20, 20)
 
                 elif self.weapon_type == "gun":
-                    if self.direction == "right" or self.direction == "left":
+                    if self.direction == "right" or self.direction == "left" or self.direction == "up-left" or self.direction == "up-right" or self.direction == "down-left" or self.direction == "down-right":
                         Weapon_rect = pygame.Rect(
                             weapon_x - (vx * self.attack_length),
                             weapon_y - (vy * self.attack_length),
@@ -284,10 +283,12 @@ async def main():
             weapon_rect = pygame.Rect(weapon_x, weapon_y, 20, 20)
 
             if self.attacking and WEAPONS[self.weapon_type]["type"] == "melee":
+                if not self.is_ai:
             
-                self.attack_length += 10
-                # MELEE ATTACK RATE: 7
-
+                    self.attack_length += 10
+               
+                else:
+                    self.attack_length += 7
                 if self.attack_length >= self.Maxlength:
                     self.returning = True
                     self.attacking = False
@@ -568,7 +569,7 @@ async def main():
         # ending the search
 
         if closed_list:
-            t2 = time.perf_counter() 
+          
             C = closed_list[-1]
 
             while (C["position"]) != (start_x, start_y):
@@ -705,7 +706,7 @@ async def main():
     )
 
 
-
+    time = 0
 
 
 
@@ -884,6 +885,17 @@ async def main():
                                                     P2.dash_timer = 60
                                                     P2.dash_direction = P2.direction
                                                     P2.dash = True
+                    if abs(P2.x - P.x) >= 100 and abs(P2.y - P.y) >= 100:
+                        
+                        P2.weapon_type = "gun"
+                       
+                        if time == 0:
+                            P2.attack()
+                            time = 30
+                        else:
+                             time -= 1
+                    else:
+                        P2.weapon_type = "block"
                     
 
             if abs(P2.x - P.x) <= 20 and abs(P2.y - P.y) <= 20:
