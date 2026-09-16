@@ -234,7 +234,8 @@ async def main():
                 pygame.draw.rect(win, (255, 0, 0), Damage_rect)
 
         def take_damage(self, amount):
-
+            font = pygame.font.Font(None, 18)
+            display_time = 60
             if self.health <= 0:
                 print("you has died")
             else:
@@ -242,6 +243,12 @@ async def main():
                     self.health -= amount
                 else:
                     self.health -= amount * (0.3)
+                
+                damage = pygame.font.Font.render(font, ("-" + str(amount)), True, self.color)
+                if display_time > 0:
+                    display_time -= 1
+                    print(amount)
+                    win.blit(damage, (self.x+20, self.y - 10))
 
 
 
