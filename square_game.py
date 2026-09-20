@@ -234,8 +234,7 @@ async def main():
                 pygame.draw.rect(win, (255, 0, 0), Damage_rect)
 
         def take_damage(self, amount):
-            font = pygame.font.Font(None, 18)
-            display_time = 60
+         
             if self.health <= 0:
                 print("you has died")
             else:
@@ -244,12 +243,7 @@ async def main():
                 else:
                     self.health -= amount * (0.3)
                 
-                damage = pygame.font.Font.render(font, ("-" + str(amount)), True, self.color)
-                if display_time > 0:
-                    display_time -= 1
-                    print(amount)
-                    win.blit(damage, (self.x+20, self.y - 10))
-
+                
 
 
         # Bullets should be independent entities after being shot
@@ -425,7 +419,7 @@ async def main():
             P2.movement(0, 20)
 
             P2.direction = "down"
-        if keys[pygame.K_KP_ENTER]:
+        if keys[pygame.K_SLASH]:
             P2.weapon_type = "gun"
         if keys[pygame.K_RCTRL]:
             P2.weapon_type = "block"
