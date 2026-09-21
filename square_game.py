@@ -3,6 +3,10 @@ import random
 import math
 import time
 import asyncio
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
+player_image = BASE_DIR / "Skware.png"
 async def main():
     pygame.init()
     mode = ""
@@ -189,7 +193,7 @@ async def main():
         def draw(self, win):
             if self.health > 0:
                 player1 = pygame.transform.scale(
-                    (pygame.image.load("/home/charles/square_game/Skware.png")),
+                    (pygame.image.load(player_image)),
                     (20, 20),
                 )
 
