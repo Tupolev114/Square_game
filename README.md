@@ -1,4 +1,4 @@
- Square_game
+# Square_game
 
 
 This is just a 2 player pvp game I made with pygame, its my first project and I'll admit, I used AI to help figure out netlify and github, but I learned, that is the important part.
@@ -23,8 +23,9 @@ Project includes:
 -bot that uses A* navigation
 -shields
 -health bars
-<img width="3024" height="4032" alt="image" src="https://github.com/user-attachments/assets/dc8a2182-c104-4e75-9e5c-fcefe795af15" /> This is 1.5, the latest release
+## Screenshots
 
-<img width="225" height="225" alt="Skware" src="https://github.com/user-attachments/assets/760e1a3f-8818-4daf-aef4-1f2de2a262fd" /> This is the Square Icon I use
+### Latest Release
+
 
 
