@@ -23,4 +23,8 @@ Project includes:
 -bot that uses A* navigation
 -shields
 -health bars
+<img width="3024" height="4032" alt="image" src="https://github.com/user-attachments/assets/dc8a2182-c104-4e75-9e5c-fcefe795af15" /> This is 1.5, the latest release
+
+<img width="225" height="225" alt="Skware" src="https://github.com/user-attachments/assets/760e1a3f-8818-4daf-aef4-1f2de2a262fd" /> This is the Square Icon I use
+
 
