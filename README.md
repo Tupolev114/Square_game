@@ -26,6 +26,9 @@ Project includes:
 ## Screenshots
 
 ### Latest Release
-
-
+![Latest release gameplay](images/Gameplay.webp)
+### Icon
+![Icon](Skware.png)
+### Github Release
+![Github release](images/Release1.5.jpg)
 
