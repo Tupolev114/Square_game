@@ -2,11 +2,11 @@
 ## Screenshots
 
 ### Latest Release
-![Latest release gameplay](images/Gameplay.webp)
+![Latest release gameplay](https://raw.githubusercontent.com/Tupolev114/Square_game/refs/heads/main/images/Gameplay.webp)
 ### Icon
-![Icon](Skware.png)
+![Icon](https://raw.githubusercontent.com/Tupolev114/Square_game/refs/heads/main/Skware.png)
 ### Github Release
-![Github release](images/Release1.5.jpg)
+![GitHub release](https://raw.githubusercontent.com/Tupolev114/Square_game/refs/heads/main/images/Release1.5.jpg)
 
 
 This is just a 2 player pvp game I made with pygame, its my first project and I'll admit, I used AI to help figure out netlify and github, but I learned, that is the important part.
