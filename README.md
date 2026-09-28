@@ -8,6 +8,17 @@
 ### Github Release
 ![GitHub release](https://raw.githubusercontent.com/Tupolev114/Square_game/refs/heads/main/images/Release1.5.jpg)
 
+[Download Square Game](https://github.com/Tupolev114/Square_game/releases/latest)
+
+For detailed installation instructions and controls:
+https://simplesquaregame.netlify.app/
+
+
+## Quick Start
+
+1. Download the latest release.
+2. Run `SquareGame.exe`.
+3. Choose PvP or PvE and start playing.
 
 This is just a 2 player pvp game I made with pygame, its my first project and I'll admit, I used AI to help figure out netlify and github, but I learned, that is the important part.
 
