@@ -286,7 +286,7 @@ async def main():
             weapon_x = self.x + kx + (vx * self.attack_length)
             weapon_y = self.y + ky + (vy * self.attack_length)
             weapon_rect = pygame.Rect(weapon_x, weapon_y, 20, 20)
-
+            enemy_rect = pygame.Rect(enemy.x, enemy.y, 20, 20)
             if self.attacking and WEAPONS[self.weapon_type]["type"] == "melee":
                 if not self.is_ai:
             
@@ -298,7 +298,7 @@ async def main():
                     self.returning = True
                     self.attacking = False
 
-                enemy_rect = pygame.Rect(enemy.x, enemy.y, 20, 20)
+                
 
                 if weapon_rect.colliderect(enemy_rect) and self.has_hit == False:
 
@@ -375,7 +375,7 @@ async def main():
 
     def draw_menu():
         font = pygame.font.Font(None, 30)
-        title = font.render("Press e for PvE or p for PvP", True, (255, 0, 0))
+        title = font.render("Press e for PvE, p for PvP, or t for Tutorial", True, (255, 0, 0))
         win.blit(title, (200, 100))
 
 
@@ -647,6 +647,23 @@ async def main():
                         if nodeY == firstY:
                             nodes_in_line += 1
         return nodes_in_line
+    def draw_tutorial():
+        font = pygame.font.Font(None, 30)
+        tutorial_text = font.render(
+            "Red player: Use WASD to move, Left Shift to attack, 1 for block, 2 for gun,", True, (255, 0,0)
+        )
+        tutorial_text_cont = font.render(
+             "3 for shield, and left click to dash", True, (255, 0,0)
+        )
+        green_tutorial_text = font.render("Green player: Use arrow keys to move, right shift to attack RCtrl for gun, ", True, (0, 255, 0))
+        green_tutorial_text_cont = font.render("slash for block, and right click to dash", True, (0, 255, 0))
+        win.blit(tutorial_text, (0, 100))
+        win.blit(tutorial_text_cont, (0, 120))
+
+        win.blit(green_tutorial_text, (0, 160))
+        win.blit(green_tutorial_text_cont, (0, 180))
+        play_text = font.render("Press e for PvE or p for PvP", True, (255, 255, 0))
+        win.blit(play_text, (0, 240))
 
     P = Player(
         "Player_Name",
@@ -729,7 +746,7 @@ async def main():
             
             if event.type == pygame.QUIT:
                 run = False
-            if game_state == "menu":
+            if game_state == "menu" or game_state == "tutorial":
                 if event.type == pygame.KEYDOWN:
 
                     if event.key == pygame.K_e:
@@ -742,6 +759,9 @@ async def main():
                         mode = "PvP"
 
                         game_state = "playing"
+                    elif event.key == pygame.K_t:
+                         game_state = "tutorial"
+                        
                     obstacles = []
                     for store_obstacles in range(numObstacles):
                             
@@ -762,9 +782,10 @@ async def main():
                                                     ):
                             
                                                         grid_cell["occupied"] = True
-                    
+            
 
-            if game_state == "playing":
+
+            elif game_state == "playing":
                 
                 
             
@@ -804,7 +825,9 @@ async def main():
 
     
         # stuff that runs every frame while playing
-        if game_state == "playing":
+        if game_state == "tutorial":
+             draw_tutorial()
+        elif game_state == "playing":
             P.draw(win)
             P2.draw(win)
             # UI displays for in game.
@@ -837,38 +860,48 @@ async def main():
             displays("ammo", P.ammo, P.color, "ammo", 20, 350)
             displays("ammo", P2.ammo, P2.color, "ammo", 600, 350)
             keys = pygame.key.get_pressed()
+            movement_clock = 0
             if keys[pygame.K_a]:
-            
-                            P.movement(-20, 0)
+                            
+                            
+                               
+                            P.movement(-10, 0)
             
                             P.direction = "left"
             if keys[pygame.K_d]:
-                P.movement(20, 0)
-            
-                P.direction = "right"
+                   
+                    P.movement(10, 0)
+                    P.direction = "right"   
             if keys[pygame.K_w]:
-            
-                            P.movement(0, -20)
+                 
+                            P.movement(0, -10)
                             P.direction = "up"
             if keys[pygame.K_s]:
-            
+                     
+                            P.movement(0, 10)
+                               
                             P.direction = "down"
-                            P.movement(0, 20)
+                           
             if mode == "PvP":
                 P2_inputs()
             elif mode == "PvE":
                 vx, vy = VECTORS[P2.direction]
                 
-                mx = vx * 20
-                my = vy * 20
+                mx = vx * 10
+                my = vy * 10
                 P2.movement(mx, my)
                 mouse_inputs()
                 #   A*STAR PATHFINDING FOR P2
             
                 
                 if P2.a_star_timer <= 0 and P2.retreating == False:
+                    round_P2_x = P2.x // 20 * 20
+                    round_P2_y = P2.y // 20 * 20
+                    round_P_x = P.x // 20 * 20
+                    round_P_y = P.y // 20 * 20
+                    print(round_P2_x, round_P2_y, round_P_x, round_P_y)
                 
-                    P2.path = a_star(grid, P2.x, P2.y, P.x, P.y)
+                    P2.path = a_star(grid, round_P2_x, round_P2_y, round_P_x, round_P_y)
 
             
                     
@@ -903,7 +936,7 @@ async def main():
                         P2.weapon_type = "block"
                     
 
-            if abs(P2.x - P.x) <= 20 and abs(P2.y - P.y) <= 20:
+            if abs(P2.x - P.x) <= 20 and abs(P2.y - P.y) <= 20 and mode == "PvE":
                 P2.attack()
         
     
